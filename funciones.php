@@ -9,13 +9,12 @@ function agregarProducto($productos, $nombre, $cantidad, $valor, $modelo){
         'modelo' => $modelo
     ];
 
-    return $nombre;
+    return $productos;
 }
 function buscarProductoModelo($productos, $modelo){
     foreach($productos as $producto){
-        if($producto['modelo'] == $modelo){
-            return "Producto: " . $producto['nombre'] . "<br>";
-
+        if($producto['modelo'] === $modelo){
+            return "Producto: " . $producto['nombre'];
         }
     }
     return "Modelo no encontrado.<br>";
@@ -24,16 +23,15 @@ function buscarProductoModelo($productos, $modelo){
 function mostrarProducto($productos){
     $result  = '';
     foreach($productos as $producto){
-        $result .= "Nombre: " . $producto['nombre'] . "<br>";
-
+        $result .= "Nombre: " . $producto['nombre'] . $producto['modelo'] . $producto['valor'] . "<br>";
     }
     return $result;
 }
 
 function actualizarProducto($productos, $nombre, $cantidad, $valor, $modelo){
     foreach($productos as $producto){
-        if ($producto['modelo'] == $modelo) {
-            $producto['nombre'] == $nombre;
+        if ($producto['nombre'] == $nombre) {
+            $producto['modelo'] == $modelo;
             $producto['valor'] == $valor;
             $producto['cantidad'] == $cantidad;
             break;
@@ -61,7 +59,7 @@ function filtrarPorValor($productos, $valor){
 function modeloDisponible($productos, $cantidad){
     foreach($productos as $producto){
         if($cantidad != 0){
-            return "Modelos disponibles: " . $producto['modelo'] . "<br>";
+            return "Modelos disponibles: " . $producto['nombre'] . " ". $producto['cantidad'] . "<br>";
         }
     }
     return "No hay productos";
