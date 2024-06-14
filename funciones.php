@@ -49,4 +49,13 @@ function calcularValor($productos, $valor, $cantidad){
  }
     return $suma;
 }
+function filtrarPorValor($producto, $valor){
+    foreach($productos as $producto){
+        if($producto['valor'] > $valor){
+            return "Producto: " . $producto['producto'] . "<br>";
+        }
+    }
+    return "No existen productos con ese fltro.<br>";
+}
+
 ?>
