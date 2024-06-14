@@ -67,4 +67,16 @@ function modeloDisponible($productos, $cantidad){
     return "No hay productos";
 }
 
+function calcularPromedio($productos, $valor, $cantidad){
+    $total = 0;
+    $cant = 0;
+    foreach($productos as $producto){
+        $total += $producto['valor'];
+        $cant ++;
+
+    }
+    return $total/$cant;
+}
+
+
 ?>
