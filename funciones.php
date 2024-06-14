@@ -22,12 +22,12 @@ function buscarProductoModelo($productos, $modelo){
 }
 
 function mostrarProducto($productos){
-    $resultado  = '';
+    $result  = '';
     foreach($productos as $producto){
-        $resultado .= "Nombre: " . $producto['nombre'] . "<br>";
+        $result .= "Nombre: " . $producto['nombre'] . "<br>";
 
     }
-    return $resultado;
+    return $result;
 }
 
 function actualizarProducto($productos, $nombre, $cantidad, $valor, $modelo){
@@ -78,5 +78,70 @@ function calcularPromedio($productos, $valor, $cantidad){
     return $total/$cant;
 }
 
+if (!isset($_SESSION['productos'])){
+    $_SESSION['productos'] = [];
+}
 
+$productos = $_SESSION['productos'];
+$resultado = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    $accion = $_POST['accion'];
+    $nombre = $_POST['nombre'] ?? '';
+    $cantidad = $_POST['cantidad'] ?? '';
+    $valor = $_POST['valor'] ?? '';
+    $modelo = $_POST['modelo'] ?? '';
+
+    switch ($accion) {
+
+        case 'agregar':
+            $productos = agregarProducto($productos, $nombre, $cantidad, $valor, $modelo);
+            $resultado = "Producto agregado correctamente";
+            break;
+
+        case 'buscar':
+            $resultado = buscarProductoModelo($productos, $modelo);
+            break;
+        
+        case 'mostrar':
+            $resultado = mostrarProducto($productos);
+            break;
+        
+        case 'actualizar':
+            $productos = actualizarProducto($productos, $nombre, $cantidad, $valor, $modelo);
+            $resultado = "Producto actualizado correctamente";
+            break;
+
+        case 'calcular':
+            $resultado = calcularValor($productos, $valor, $cantidad);
+            break;
+
+        case 'filtrar':
+            $resultado = filtrarPorValor($productos, $valor);
+            break;
+
+        case 'listar':
+            $resultado = modeloDisponible($productos, $cantidad);
+            break;
+
+        case 'calcular-promedio':
+            $resultado = calcularPromedio($productos, $valor, $cantidad);
+            break;
+
+        case 'limpiar':
+            $_SESSION['usuarios'] = [];
+            $resultado = "Resultados limpiados correctamente.<br>";
+            session_destroy();
+            break;
+    
+        default:
+            $resultado = "Acción no válida.";
+    }
+
+    $_SESSION['productos'] = $productos;
+    $_SESSION['resultado'] = $resultado;
+}
+
+header("Location: index.php");
+exit();
 ?>
