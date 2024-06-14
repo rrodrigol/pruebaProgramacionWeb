@@ -14,15 +14,18 @@ if (isset($_SESSION['resultado'])){
     <title>Gestión de Usuarios</title>
 </head>
 <body>
-    <form action="procesamiento.php" method="POST">
+    <form action="funciones.php" method="POST">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre"><br>
         
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad" name="edad"><br>
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" name="cantidad"><br>
         
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email"><br>
+        <label for="valor">Valor:</label>
+        <input type="number" id="valor" name="valor"><br>
+
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo"><br>
         
         <input type="radio" id="agregar" name="accion" value="agregar">
         <label for="agregar">Agregar</label><br>
